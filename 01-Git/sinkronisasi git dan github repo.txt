@@ -1,0 +1,17 @@
+Step by step Instruction:
+
+1. Create repo di github
+- nama repo github dan repo git local disamakan: contoh "reposaya"
+
+2. Create folder di komputer local dengan nama "reposaya"
+- inisiasi folder "reposaya" : git init
+- tambahkan file baru dan lakukan commit pertama : git add . dan git commit -m "pesan commit anda"
+
+3. Connecting local repo to remote repo
+- git remote add origin https://github.com/username/reposaya.git
+
+4. lakukan push pertama perubahan local repo to remote repo
+- git push -u origin main
+- perhatikan nama branch pada github, pastikan untuk menyesuaikan "main" branch dengan nama branch pada github.
+
+5. setelah push pertama, untuk push perubahan selanjut cukup menggunakan "git push"

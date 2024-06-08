@@ -9,3 +9,7 @@ $ ansible serverprod --key-file ~/.ssh/ansible -i inventory.ini -m ping
 
 # see all hosts in ansible inventory
 $ ansible all --list-hosts
+
+# update dan upgrade apt reposity
+$ ansible all -m apt -a update_cache=true --become --ask-become-pass
+$ ansible all -m apt -a upgrade=dist --become --ask-become-pass

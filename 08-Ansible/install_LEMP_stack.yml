@@ -61,4 +61,21 @@
     service:
       name: nginx
       state: started
+      enabled: yes
     when: ansible_distribution == "Ubuntu"
+
+  - name: change email address for admin
+    tags: nginx,ubuntu
+    lineinfile:
+      path: /etc/nginx/nginx.conf
+      regexp: '^Serveradmin'
+      line: Serveradmin somebody@somewhere.net
+    when: ansible_distribution == "Ubuntu"
+    register: nginx
+    
+  - name: restart nginx service when config file changed
+    tags: nginx,ubuntu
+    service:
+      name: nginx
+      state: restarted
+    when: nginx.changed

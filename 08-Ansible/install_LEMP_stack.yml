@@ -1,0 +1,32 @@
+---
+
+- hosts: all
+  become: yes
+  pre_tasks:
+
+  - name: update install (Rocky Linux)
+    dnf:
+      update_only: yes
+      update_cache: yes
+    when: ansible_distribution == "Rocky"
+  
+  - name: update install (Ubuntu)
+    apt:
+      upgrade: dist
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
+    
+    
+- hosts: serverprod
+  become: yes
+  tasks:
+  
+  - name: install LEMP Stack (Ubuntu)
+    apt:
+      name:
+        - nginx
+        - mysql-server
+        - php-fpm
+        - php-mysql
+      state: latest
+    when: ansible_distribution == "Ubuntu"

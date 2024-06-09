@@ -5,12 +5,14 @@
   pre_tasks:
 
   - name: update install (Rocky Linux)
+    tags: always
     dnf:
       update_only: yes
       update_cache: yes
     when: ansible_distribution == "Rocky"
   
   - name: update install (Ubuntu)
+    tags: always
     apt:
       upgrade: dist
       update_cache: yes
@@ -22,6 +24,7 @@
   tasks:
   
   - name: install LEMP Stack (Ubuntu)
+    tags: lemp,ubuntu
     apt:
       name:
         - nginx

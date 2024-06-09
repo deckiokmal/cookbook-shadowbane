@@ -33,3 +33,12 @@
         - php-mysql
       state: latest
     when: ansible_distribution == "Ubuntu"
+
+  - name: copy default html file
+    tags: lemp
+    copy:
+      src: default_site.html
+      dest: /var/www/html/index.html
+      owner: root
+      group: root
+      mode: 0644

@@ -1,0 +1,24 @@
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: create user deckiokmal
+    tags: always
+    user:
+      name: deckiokmal
+      groups: root
+
+  - name: add ssh key for deckiokmal
+    tags: always
+    authorized_key:
+      user: deckiokmal
+      key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO8bZ0v4WUMQ57MrE0624rnuUJURBp7mHxxsR8mZmfeg ansible"
+      
+  - name: add sodoers file for deckiokmal
+    tags: always
+    copy:
+      src: sudoer_deckiokmal
+      dest: /etc/sudoers.d/deckiokmal
+      owner: root
+      group: root
+      mode: 0440

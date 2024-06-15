@@ -1,0 +1,26 @@
+1. Mengubah Hostname
+sudo hostnamectl set-hostname hostname_baru
+
+edit file hosts:
+sudo nano /etc/hosts
+
+ganti hostname pada bagian 127.0.0.1 hostname_baru
+
+2. Mengubah IP Address menggunakan NETPLAN
+sudo nano /etc/netplan/00-installer-config.yaml
+
+tambahkan baris berikut:
+# This is the network config written by 'subiquity'
+network:
+  ethernets:
+    ens18:
+      addresses: [192.168.100.106/24]
+      gateway4: 192.168.100.1
+      nameservers:
+        addresses: [192.168.100.101]
+      dhcp4: false
+  version: 2
+
+simpan perubahan:
+sudo netplan apply
+sudo reboot

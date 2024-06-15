@@ -1,0 +1,171 @@
+## 1. WORKING WITH OPENSSH
+- by default ssh authentication menggunakan password.
+- ssh authentication menggunakan ssh key dalam project ansible
+
+# TODO pastikan openssh server terinstall disemua host
+
+# TODO lakukan initial koneksi ke semua remote server dan answer "yes" to initial connection prompt
+
+$ ssh 10.0.103.100
+The authenticity of host '10.0.103.100 (10.0.103.100)' can't be established.
+ED25519 key fingerprint is SHA256:o09DJRSSb3mW3yJDVwM7v9v3sk4z2iFmXOq6MSbBqs0.
+This key is not known by any other names
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.0.103.100' (ED25519) to the list of known hosts.
+
+# TODO create an SSH key pair (with a passphrase) for your normal user account.
+
+- ssh key management
+$ ls -la .ssh
+total 8
+drwx------. 2 deckiokmal deckiokmal   25 Jun  8 21:18 .
+drwx------. 8 deckiokmal deckiokmal 4096 Jun  8 21:54 ..
+-rw-r--r--. 1 deckiokmal deckiokmal  762 Jun  8 22:24 known_hosts
+
+- generated ssh key
+$ ssh-keygen -t ed25519 -C "deckiokmal default"
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/home/deckiokmal/.ssh/id_ed25519):
+Enter passphrase (empty for no passphrase): #type whatever you want
+Enter same passphrase again:
+Your identification has been saved in /home/deckiokmal/.ssh/id_ed25519
+Your public key has been saved in /home/deckiokmal/.ssh/id_ed25519.pub
+The key fingerprint is:
+SHA256:tTxeNGZpih0MdDmJCgPVRZX+5oSo5TTY5s1xK/VgpRo deckiokmal default
+The key's randomart image is:
++--[ED25519 256]--+
+|  .o.. +=oo+     |
+|    o . .+=  .   |
+|     o . .+.B    |
+|      .  =.O ..  |
+|       oS.*o.o   |
+|      . B.EoX    |
+|       B +.@ +   |
+|      . o = o .  |
+|           .     |
++----[SHA256]-----+
+
+$ ls -la .ssh
+total 16
+drwx------. 2 deckiokmal deckiokmal   65 Jun  8 22:31 .
+drwx------. 8 deckiokmal deckiokmal 4096 Jun  8 21:54 ..
+-rw-------. 1 deckiokmal deckiokmal  464 Jun  8 22:31 id_ed25519
+-rw-r--r--. 1 deckiokmal deckiokmal  100 Jun  8 22:31 id_ed25519.pub
+-rw-r--r--. 1 deckiokmal deckiokmal  762 Jun  8 22:24 known_hosts
+
+$ cat .ssh/id_ed25519.pub
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGvt3vce0CVGx6kqQKy2G7NgoMCXCA7SMDY+jx8HCdAN deckiokmal default
+
+$ cat .ssh/id_ed25519
+-----BEGIN OPENSSH PRIVATE KEY-----
+b3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABAkJf+NWK
+cP16lQSC6k8J/oAAAAEAAAAAEAAAAzAAAAC3NzaC1lZDI1NTE5AAAAIGvt3vce0CVGx6kq
+QKy2G7NgoMCXCA7SMDY+jx8HCdANAAAAoHqkEwdebuLsYyxOyypt5VZxoF+BWG8v3KH7p4
+pYqYsrrkw1iu7qYrxH6G7etsuKzxzp7ZDdEH8gs+SGRqrc15Vn5vRE4EiMN71zJNLLu2M8
+3ANI0SQubbxUuMmX0Q6IouopyHDkbpf0W+UxCEQPP0K5tuUkAJNrDclw7zs3s6DQXmQSjV
+JdpfG2I/6bApOZTKGemoWzO1/eo70m6AGQSq8=
+-----END OPENSSH PRIVATE KEY-----
+
+# TODO copy that key to each remote server
+$ ssh-copy-id -i ~/.ssh/id_ed25519.pub 10.0.201.1
+/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/home/deckiokmal/.ssh/id_ed25519.pub"
+/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+deckiokmal@10.0.201.1's password:
+
+Number of key(s) added: 1
+
+Now try logging into the machine, with:   "ssh '10.0.201.1'"
+and check to make sure that only the key(s) you wanted were added.
+
+# check di remote server
+$ ls -la .ssh
+total 12
+drwx------  2 deckiokmal deckiokmal 4096 Jun  8 22:38 .
+drwxr-x--- 14 deckiokmal deckiokmal 4096 Jun  8 22:38 ..
+-rw-------  1 deckiokmal deckiokmal  100 Jun  8 22:38 authorized_keys
+
+$ cat .ssh/authorized_keys
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGvt3vce0CVGx6kqQKy2G7NgoMCXCA7SMDY+jx8HCdAN deckiokmal default
+
+# test koneksi pertama ke remote server
+$ ssh 10.0.201.1
+Enter passphrase for key '/home/deckiokmal/.ssh/id_ed25519':
+
+
+# TODO create an SSH key that is spesific to Ansible
+$ ssh-keygen -t ed25519 -C "ansible"
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/home/deckiokmal/.ssh/id_ed25519): /home/deckiokmal/.ssh/ansible # hati-hati untuk memasukkan path karna sebelumnya kita sudah membuat key dengan default name.
+Enter passphrase (empty for no passphrase): #dikosongkan karna kita tidak butuh ansible untuk memasukan passphrase manual.
+Enter same passphrase again:
+Your identification has been saved in /home/deckiokmal/.ssh/ansible
+Your public key has been saved in /home/deckiokmal/.ssh/ansible.pub
+The key fingerprint is:
+SHA256:tPtTVZV/LBVBcfzW1hmhmOxpc1PP1vTN9a73iFEiq0Y ansible
+The key's randomart image is:
++--[ED25519 256]--+
+|              .BX|
+|          . o .o=|
+|        .  + . =X|
+|       . .. . +=^|
+|        S .=.+.+@|
+|        E..o+o.o |
+|       .. ...   .|
+|        .o.  o o.|
+|       .. ... o.o|
++----[SHA256]-----+
+
+$ ls -la .ssh
+total 24
+drwx------. 2 deckiokmal deckiokmal   99 Jun  8 22:50 .
+drwx------. 8 deckiokmal deckiokmal 4096 Jun  8 21:54 ..
+-rw-------. 1 deckiokmal deckiokmal  399 Jun  8 22:50 ansible
+-rw-r--r--. 1 deckiokmal deckiokmal   89 Jun  8 22:50 ansible.pub
+-rw-------. 1 deckiokmal deckiokmal  464 Jun  8 22:31 id_ed25519
+-rw-r--r--. 1 deckiokmal deckiokmal  100 Jun  8 22:31 id_ed25519.pub
+-rw-r--r--. 1 deckiokmal deckiokmal  762 Jun  8 22:24 known_hosts
+
+
+# TODO copy that key to each remote server
+$ ssh-copy-id -i ~/.ssh/ansible.pub 10.0.201.2
+
+$ cat .ssh/authorized_keys
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGvt3vce0CVGx6kqQKy2G7NgoMCXCA7SMDY+jx8HCdAN deckiokmal default
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO8bZ0v4WUMQ57MrE0624rnuUJURBp7mHxxsR8mZmfeg ansible
+
+# testing key ansible
+$ ssh -i /home/deckiokmal/.ssh/ansible 10.0.201.1
+
+
+# TODO for normal user with passphrase - agar tidak berulang memasukkan passphrase.
+
+- mengaktifkan ssh-agent di background proccess "not Permanently"
+$ eval $(ssh-agent)
+Agent pid 27904
+
+
+
+- check background proccess
+$ ps aux | grep 27904
+deckiok+   27904  0.0  0.0   8480  1720 ?        Ss   23:00   0:00 ssh-agent
+deckiok+   27906  0.0  0.1   6408  2304 pts/0    S+   23:01   0:00 grep --color=auto 27904
+
+- tambahkan dan simpan passphrase
+$ ssh-add
+Enter passphrase for /home/deckiokmal/.ssh/id_ed25519:
+Identity added: /home/deckiokmal/.ssh/id_ed25519 (deckiokmal default)
+
+
+- opsi menggunakan alias untuk mengaktifkan dengan mudah
+$ alias ssha='eval $(ssh-agent) && ssh-add'
+$ ssha
+Agent pid 27927
+Enter passphrase for /home/deckiokmal/.ssh/id_ed25519:
+Identity added: /home/deckiokmal/.ssh/id_ed25519 (deckiokmal default)
+
+- simpan alias di .bashrc file
+alias ssha='eval $(ssh-agent) && ssh-add'
+
+$ alias ssha
+alias ssha='eval $(ssh-agent) && ssh-add'

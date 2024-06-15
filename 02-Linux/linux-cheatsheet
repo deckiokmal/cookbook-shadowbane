@@ -1,1 +1,2 @@
-
+# menghapus directory yang berisi file secara paksa
+sudo rm -rf /path/to/file

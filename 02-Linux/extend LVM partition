@@ -1,0 +1,43 @@
+1. resizepart pada partisi exsisting menggunakan parted
+sudo parted /dev/sda
+
+(parted) print
+Model: QEMU QEMU HARDDISK (scsi)
+Disk /dev/sda: 268GB
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+Disk Flags:
+
+Number  Start   End     Size    File system  Name  Flags
+ 1      1049kB  2097kB  1049kB                     bios_grub
+ 2      2097kB  2150MB  2147MB  ext4
+ 3      2150MB  34.4GB  32.2GB
+
+(parted) resizepart 3 100%
+
+(parted) print
+Model: QEMU QEMU HARDDISK (scsi)
+Disk /dev/sda: 268GB
+Sector size (logical/physical): 512B/512B
+Partition Table: gpt
+Disk Flags:
+
+Number  Start   End     Size    File system  Name  Flags
+ 1      1049kB  2097kB  1049kB                     bios_grub
+ 2      2097kB  2150MB  2147MB  ext4
+ 3      2150MB  268GB   266GB
+
+(parted) quit
+
+2. resize physical volume
+sudo pvresize /dev/sda3
+
+-verifikasi: sudo pvdisplay && sudo vgdisplay
+
+3. extend logical volume
+sudo lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv
+
+-verifikasi: sudo lvdisplay
+
+4. resize juga ukuran sistemfile : ext4
+sudo resize2fs /dev/ubuntu-vg/ubuntu-lv

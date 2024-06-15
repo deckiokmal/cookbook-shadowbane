@@ -35,3 +35,8 @@ sudo -l -U nama_pengguna
 
 5. Periksa shell pengguna:
 echo $SHELL
+
+
+
+# menghapus user
+$ sudo userdel username

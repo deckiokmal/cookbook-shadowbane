@@ -1,0 +1,37 @@
+1. Membuat Pengguna Baru:
+-Gunakan perintah adduser atau useradd.
+sudo useradd -m nama_pengguna
+sudo passwd nama_pengguna
+
+2. Menambahkan user ke dalam sudo group
+sudo usermod -aG sudo nama_pengguna
+-verifikasi: login ke user baru lalu ketik command= sudo ls /root
+
+3. Menambahkan user ke dalam sudo group dan membuat permission pada file /etc/sudoers:
+sudo visudo
+-tambahkan baris berikut: nama_pengguna ALL=(ALL:ALL) ALL
+
+#######################################################################################
+Opsi jika membuat home directory secara manual
+sudo mkdir /home/john
+sudo chown john:john /home/john
+sudo chmod 755 /home/john
+sudo cp -r /etc/skel/. /home/john/
+sudo usermod -s /bin/bash john
+
+1. Menghapus Pengguna:
+sudo deluser nama_pengguna
+
+2. Mengubah Shell Pengguna:
+sudo chsh -s /bin/bash nama_pengguna
+
+3. Validasi Konfigurasi:
+-Masuk kembali ke akun pengguna yang bersangkutan dan periksa perubahan yang dilakukan.
+-Periksa grup pengguna:
+groups nama_pengguna
+
+4. Periksa hak sudo:
+sudo -l -U nama_pengguna
+
+5. Periksa shell pengguna:
+echo $SHELL

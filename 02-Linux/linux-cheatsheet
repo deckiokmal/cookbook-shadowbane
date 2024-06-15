@@ -1,2 +1,5 @@
 # menghapus directory yang berisi file secara paksa
-sudo rm -rf /path/to/file
+$ sudo rm -rf /path/to/file
+
+# check proses yang berjalan terhadap suatu user
+$ sudo ps -u username

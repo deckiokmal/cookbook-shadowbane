@@ -1,0 +1,31 @@
+1. Update Sistem Paket
+sudo apt update
+sudo apt upgrade -y
+
+2. Hapus Versi Docker Lama (Jika Ada)
+sudo apt remove docker docker-engine docker.io containerd runc
+
+3. Instal Paket Pendukung
+sudo apt install apt-transport-https ca-certificates curl software-properties-common -y
+
+4. Tambahkan GPG Key untuk Docker
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+5. Tambahkan Repository Docker
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+6. Update Sistem Paket Kembali
+sudo apt update
+
+7. Instal Docker CE
+sudo apt install docker-ce docker-ce-cli containerd.io -y
+
+8. Verifikasi Instalasi Docker
+sudo systemctl status docker
+sudo docker --version
+
+9. (Opsional) Menjalankan Docker Tanpa Sudo
+sudo usermod -aG docker $USER
+
+Log out dan log in kembali untuk perubahan grup ini berlaku, atau gunakan perintah berikut untuk memuat ulang sesi:
+newgrp docker

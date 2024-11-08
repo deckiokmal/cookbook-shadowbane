@@ -1,10 +1,13 @@
-## 1. WORKING WITH OPENSSH
+1. WORKING WITH OPENSSH
 - by default ssh authentication menggunakan password.
-- ssh authentication menggunakan ssh key dalam project ansible
+- ssh authentication menggunakan ssh key
 
-# TODO pastikan openssh server terinstall disemua host
+2. Default konfigurasi ssh
+sudo nano /etc/ssh/sshd_config
+sudo systemctl restart ssh
 
-# TODO lakukan initial koneksi ke semua remote server dan answer "yes" to initial connection prompt
+# ssh authentication menggunakan ssh key
+1. lakukan initial koneksi ke semua remote server dan answer "yes" to initial connection prompt
 
 $ ssh 10.0.103.100
 The authenticity of host '10.0.103.100 (10.0.103.100)' can't be established.
@@ -13,8 +16,7 @@ This key is not known by any other names
 Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
 Warning: Permanently added '10.0.103.100' (ED25519) to the list of known hosts.
 
-# TODO create an SSH key pair (with a passphrase) for your normal user account.
-
+2. create an SSH key pair (with a passphrase) for your normal user account.
 - ssh key management
 $ ls -la .ssh
 total 8

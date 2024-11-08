@@ -1,0 +1,11 @@
+1. Monitoring dan Logging
+sudo apt install htop
+sudo apt install glances
+
+2. Setup Log Management
+sudo nano /etc/logrotate.conf
+
+3. Monitor Disk dan Memori
+df -h : untuk mengecek penggunaan disk dan 
+free -m : untuk memonitor memori.
+Gunakan peringatan otomatis dengan tools seperti Nagios atau Prometheus.

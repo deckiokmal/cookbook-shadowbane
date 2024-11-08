@@ -1,0 +1,13 @@
+1. Standard SSH dan HTTP
+sudo ufw allow 2222/tcp  # port SSH yang baru
+sudo ufw allow http
+sudo ufw allow https
+sudo ufw enable
+
+2. Pencegahan Brute Force
+sudo apt install fail2ban -y
+sudo systemctl enable fail2ban
+
+3. Update security path otomatis
+sudo apt install unattended-upgrades
+sudo dpkg-reconfigure --priority=low unattended-upgrades

@@ -1,0 +1,118 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/latest/configs/services
+
+- Networking:
+    - DataCenter RouterOS:
+        href: http://routerdc.dopnetindo.com
+        description: routerdc.dopnetindo.com
+        icon: mikrotik.png
+        siteMonitor: http://10.0.102.1
+        widget:
+            type: mikrotik
+            url: http://10.0.102.1
+            username: username
+            password: password
+    - Pi-Hole:
+        href: http://pihole.dopnetindo.com/admin
+        description: PIhole Adblocker
+        icon: adblock.png
+        siteMonitor: http://10.0.103.100
+        widget:
+            type: pihole
+            url: http://10.0.103.100
+            key: {{HOMEPAGE_VAR_PIHOLE_TOKEN}}
+
+- Infrastructure and Data:
+    - Proxmox CE:
+        href: https://autobox-node.dopnetindo.com:8006
+        description: PROXMOX VE
+        icon: proxmox.png
+        widget:
+            type: proxmox
+            url: https://10.10.10.100:8006
+            username: {{HOMEPAGE_VAR_PROXMOX_USERNAME}}
+            password: {{HOMEPAGE_VAR_PROXMOX_PASSWORD}}
+            node: autobox-node
+
+- Management:
+    - Portainer:
+        href: https://portainer.dopnetindo.com:9443
+        description: Portainer CE
+        icon: portainer.png
+        # widget:
+        #     type: portainer
+        #     url: https://portainer.dopnetindo.com:9443
+        #     username: username
+        #     password: password
+    - Dockge:
+        href: http://dockge.dopnetindo.com/
+        description: dockge.dopnetindo.com
+        icon: dockge.png
+
+- Monitoring:
+    - UptimeKuma:
+        href: http://uptimekuma.dopnetindo.com
+        description: uptimekuma.dopnetindo.com
+        icon: uptime-kuma.png
+    - Prometheus:
+        href: http://prometheus.dopnetindo.com
+        description: prometheus.dopnetindo.com
+        icon: prometheus.png
+    - Grafana:
+        href: http://grafana.dopnetindo.com
+        description: grafana.dopnetindo.com
+        icon: grafana.png
+    - PRTG Monitor:
+        href: https://prtg.dopnetindo.com
+        description: prtg.dopnetindo.com
+        icon: prtg.png
+        siteMonitor: https://10.0.202.1
+
+- AI:
+    - ChatGPT:
+        href: https://chat.openai.com/
+        description: ChatGPT OpenAI
+        icon: chatgpt.png
+    - Gemini:
+        href: https://gemini.google.com/app
+        description: Gemini from Google
+        icon: si-googlegemini
+    - Copy.AI:
+        href: https://www.copy.ai/
+        description: Copy Writter AI
+        icon: si-copyai
+    - Elevenlabs:
+        href: https://elevenlabs.io/
+        description: Generative Voice AI
+        icon: si-elevenlabs
+
+- Automation:
+    - Kestra:
+        href: http://kestra.dopnetindo.com:8080
+        description: kestra.dopnetindo.com
+        icon: si-keras-#4945FF
+    - Ansible Semaphore:
+        href: http://semaphore.dopnetindo.com
+        description: semaphore.dopnetindo.com
+        icon: si-ansible
+
+- Security and Identity:
+    - Authentik:
+        href: http://authentik.dopnetindo.com:9000
+        description: authentik.dopnetindo.com
+        icon: authentik.png
+    - Wazuh:
+        href: http://wazuh.dopnetindo.com
+        description: Wazuh XDR & SIEM
+        icon: wazuh.png
+
+- Proxy:
+    - NPM:
+        href: http://npm.dopnetindo.com:81
+        description: npm.dopnetindo.com
+        icon: nginx-proxy-manager.png
+    - Squid Cache:
+        href: http://npm.dopnetindo.com:81
+        description: Squid Cache proxy
+        icon: squidex.png

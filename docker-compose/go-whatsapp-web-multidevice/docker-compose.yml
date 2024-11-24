@@ -1,0 +1,26 @@
+services:
+  whatsapp_go:
+    image: "aldinokemal2104/go-whatsapp-web-multidevice:latest"
+    container_name: whatsapp
+    build:
+      context: .
+      dockerfile: ./docker/golang.Dockerfile
+    restart: always
+    ports:
+      - "8442:3000"
+    volumes:
+      - whatsapp:/app/storages
+    command:
+      - --basic-auth=username:password
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    networks:
+      - whatsapp
+
+volumes:
+  whatsapp:
+networks:
+  whatsapp:

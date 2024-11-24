@@ -33,6 +33,13 @@ services:
       - monitoring
     restart: unless-stopped
 
+  snmp-exporter:
+    container_name: snmp-exporter
+    image: prom/snmp-exporter
+    networks:
+      - monitoring
+    restart: unless-stopped
+
 volumes:
   prometheus_data:
   alertmanager_data:

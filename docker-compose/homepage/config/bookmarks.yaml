@@ -1,0 +1,85 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/latest/configs/bookmarks
+
+- Repositories:
+    - Deckiokmal:
+        - abbr: GH
+          href: https://github.com/deckiokmal
+    - DockerHUB:
+        - abbr: DH
+          href: https://hub.docker.com/
+    - Pypi:
+        - abbr: PY
+          href: https://pypi.org/
+    - Fortinet Documentation:
+        - abbr: FO
+          href: https://docs.fortinet.com/
+    - MikroTik Documentation:
+        - abbr: MK
+          href: https://help.mikrotik.com/docs/display/ROS/RouterOS
+
+- Learning Platform:
+    - HackTheBox:
+        - abbr: HT
+          href: https://academy.hackthebox.com/
+    - TryHackME:
+        - abbr: TH
+          href: https://tryhackme.com/
+    - Portswigger:
+        - abbr: PS
+          href: https://portswigger.net/
+    - ECCouncil:
+        - abbr: EC
+          href: https://www.eccouncil.org/
+    - Udemy:
+        - abbr: UD
+          href: https://www.udemy.com/
+    - Coursera:
+        - abbr: CO
+          href: https://www.coursera.org/
+
+- Cloud Services:
+    - Cloudflare:
+        - abbr: CF
+          href: https://dash.cloudflare.com/login
+    - Zerotier:
+        - abbr: ZT
+          href: https://www.zerotier.com/
+    - Rumahweb:
+        - abbr: RW
+          href: https://www.rumahweb.com/
+    - UISP Design:
+        - abbr: UI
+          href: https://ispdesign.ui.com/
+
+- Cloud Platform:
+    - AWS:
+        - abbr: AW
+          href: https://aws.amazon.com/id/
+    - Azure:
+        - abbr: AZ
+          href: https://azure.microsoft.com/id-id
+    - Google:
+        - abbr: GC
+          href: https://cloud.google.com/
+    - DigitalOcean:
+        - abbr: DG
+          href: https://www.digitalocean.com/
+    - Alibaba:
+        - abbr: AL
+          href: https://www.alibabacloud.com/id?_p_lc=9
+    - Cloudeka Lintasarta:
+        - abbr: LA
+          href: https://www.cloudeka.id/id/
+
+- Social & Entertainment:
+    - YouTube:
+        - abbr: YT
+          href: https://youtube.com/
+    - Instagram:
+        - abbr: IG
+          href: https://www.instagram.com/deckiokmal/
+    - HBO GO:
+        - abbr: HB
+          href: https://www.hbogoasia.id/

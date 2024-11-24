@@ -1,0 +1,17 @@
+global:
+  resolve_timeout: 5m
+
+route:
+  receiver: 'email'
+
+receivers:
+- name: 'email'
+  email_configs:
+  - to: 'your_email@example.com'
+
+# Contoh rule alerting
+# alert: InstanceDown
+#   if: up == 0
+#   annotations:
+#     summary: Instance {{ $label.instance }} down
+#   for: 5m

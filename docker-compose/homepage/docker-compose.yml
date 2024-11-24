@@ -1,0 +1,27 @@
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:v0.8.9
+    container_name: homepage
+    networks:
+      - frontend_br
+      # frontend_l3:
+      #   ipv4_address: 192.168.101.2
+    ports:
+      - 3000:3000
+    volumes:
+      - ./config:/app/config
+      - ./images:/app/public/images
+      - ./images:/app/public/icons
+    environment:
+      PUID: 1001
+      PGID: 1001
+      HOMEPAGE_VAR_PROXMOX_USERNAME: $HOMEPAGE_VAR_PROXMOX_USERNAME
+      HOMEPAGE_VAR_PROXMOX_PASSWORD: $HOMEPAGE_VAR_PROXMOX_PASSWORD
+      HOMEPAGE_VAR_PIHOLE_TOKEN: $HOMEPAGE_VAR_PIHOLE_TOKEN
+    restart: unless-stopped
+    labels:
+      - "traefik.http.routers.homepage.rule=Host(`homepage.dopnetindo.com`)"
+
+networks:
+  frontend_br:
+    external: true

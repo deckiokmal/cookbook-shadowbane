@@ -15,3 +15,6 @@ Step by step Instruction:
 - perhatikan nama branch pada github, pastikan untuk menyesuaikan "main" branch dengan nama branch pada github.
 
 5. setelah push pertama, untuk push perubahan selanjut cukup menggunakan "git push"
+
+- Menerapkan perubahan untuk branch yang berbeda commit histori
+git pull origin main --allow-unrelated-histories

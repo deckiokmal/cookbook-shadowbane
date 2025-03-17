@@ -18,3 +18,6 @@ Step by step Instruction:
 
 - Menerapkan perubahan untuk branch yang berbeda commit histori
 git pull origin main --allow-unrelated-histories
+
+- Merge branch lokal dan remote
+git config pull.rebase false

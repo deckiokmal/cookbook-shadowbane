@@ -1,31 +1,33 @@
 services:
   traefik:
     image: docker.io/library/traefik:v2.11.0
-    container_name: traefik-prod-1-server
+    container_name: traefik-ctx-prod-1
+    command:
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"   # Untuk Let's Encrypt
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      - "--certificatesresolvers.myresolver.acme.email=youremail@example.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/etc/traefik/acme.json"
     ports:
       - 80:80
       - 443:443
-      # -- (Optional) Enable Dashboard, don't do in production
-      - 8080:8080
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - ./config/traefik.yaml:/etc/traefik/traefik.yaml:ro
-      - ./config/conf/:/etc/traefik/conf/
-      - ./config/certs/:/etc/traefik/certs/
-    # -- (Optional) When using Cloudflare as Cert Resolver
-    # environment:
-    #   - CF_DNS_API_TOKEN=your-cloudflare-api-token
-    # -- (Optional) When using a custom network
+      - /home/username/traefik/config/traefik.yaml:/etc/traefik/traefik.yaml:ro
+      - /home/username/traefik/config/conf/:/etc/traefik/conf/
+      - /home/username/traefik/config/certs/:/etc/traefik/certs/
+      - /home/username/traefik/config/acme.json:/etc/traefik/acme.json
     networks:
-      - frontend_br
-      - backend_br
+      - traefik-net
     restart: unless-stopped
+
+networks:
+  traefik-net:
+    external: true
 
 volumes:
   traefik-ssl-certs:
     driver: local
-
-networks:
-  frontend_br:
-    external: true
-  backend_br:
